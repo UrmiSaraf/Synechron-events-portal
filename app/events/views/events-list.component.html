@@ -1,0 +1,48 @@
+<h1 [innerText]="title"></h1>
+
+<hr>
+<h5 [innerText]="subTitle"></h5>
+<hr>
+<p [innerText]="childMessage"></p>
+<div class="form-group row">
+    <label for="searchInput" class="col-sm-2 col-form-label">Search Event</label>
+    <div class="col-sm-4">
+        <input type="text" class="form-control" id="searchInput" autofocus placeholder ="Search Events by Name" [(ngModel)]="searchChar">
+    </div>
+</div>
+
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Event Code</th>
+            <th>Event Name</th>
+            <th>Start Date</th>
+            <th>Fees</th>
+            <th>Show Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let event of events | eventsFilter:searchChar">
+            <td>
+                <span [innerText]="event.eventCode | lowercase"></span>
+            </td>
+            <td>
+                <span [innerText]="event.eventName | uppercase"></span>
+            </td>
+            <td>
+                <span [innerText]="event.startDate | date:'MM/dd/yyyy'"></span>
+            </td>
+            <td>
+                <span [innerText]="event.fees | currency:'INR'"></span>
+            </td>
+            <td>
+                <button class="btn btn-success" (click)="onEventSelection(event)">Show Details</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div *ngIf="selectedEvent">
+    <event-details [receivedEventId]="selectedEvent.eventId" (onConfirmation)="onChildConfirmation($event)">
+
+    </event-details>
+</div>

@@ -1,0 +1,28 @@
+<h1 [innerText]="title"></h1>
+<hr>
+<h5 [innerText]="subTitle"></h5>
+
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Employee Name</th>
+            <th>City</th>
+            <th>Email</th>
+            <th>Contact #</th>
+            <th>Show Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let employee of synechronEmployees">
+            <td><span [innerText]="employee.employeeName"></span></td>
+            <td><span [innerText]="employee.city"></span></td>
+            <td><span [innerText]="employee.email"></span></td>
+            <td><span [innerText]="employee.phone"></span></td>
+            <td><button class="btn btn-primary" (click)="onEmployeeSelection(employee)">Show Details</button></td>
+        </tr>
+    </tbody>
+</table>
+
+<div *ngIf="selectedEmployee">
+    <employee-details [employee]="selectedEmployee"></employee-details>
+</div>
